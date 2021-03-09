@@ -80,6 +80,26 @@ public class UsageTests {
         Assert.assertFalse(ddd.set(DamePiece.WHITE, position));
     }
 
+    @Test
+    public void goodSet2() throws GameException, StatusException {
+        Dame ddd = this.getDame();
+        DamePiece aliceSymbol = ddd.pick(ALICE, DamePiece.WHITE);
+        DamePiece bobSymbol = ddd.pick(BOB, DamePiece.WHITE);
+
+        DameBoardPosition position = new DameBoardPosition("B", 4);
+        ddd.set(DamePiece.WHITE, position);
+        position = new DameBoardPosition("A", 5);
+        ddd.set(DamePiece.BLACK, position);
+        position = new DameBoardPosition("H", 4);
+        ddd.set(DamePiece.WHITE, position);
+        position = new DameBoardPosition("C", 3);
+        ddd.set(DamePiece.BLACK, position);
+
+        Assert.assertFalse(ddd.set(DamePiece.WHITE, position));
+        Assert.assertFalse(ddd.set(DamePiece.BLACK, position));
+
+    }
+
     @Test(expected = GameException.class)
     public void failureSetOutside1() throws GameException, StatusException {
         Dame ddd = this.getDame();
@@ -152,6 +172,46 @@ public class UsageTests {
         ddd.set(DamePiece.WHITE, position);
 
         ddd.pick(BOB, DamePiece.WHITE);
+    }
+
+    @Test(expected = GameException.class)
+    public void failureSetSamePosition1() throws GameException, StatusException {
+        Dame ddd = this.getDame();
+
+        DamePiece aliceColor = ddd.pick(ALICE, DamePiece.WHITE);
+        DamePiece bobColor = ddd.pick(BOB, DamePiece.BLACK);
+
+        DameBoardPosition position = new DameBoardPosition("B", 4);
+        ddd.set(DamePiece.WHITE, position);
+        ddd.set(DamePiece.BLACK, (position = new DameBoardPosition("A", 5)));
+        ddd.set(DamePiece.WHITE, (position = new DameBoardPosition("B", 4)));
+    }
+
+    @Test(expected = GameException.class)
+    public void failureSetSamePosition2() throws GameException, StatusException {
+        Dame ddd = this.getDame();
+
+        DamePiece aliceColor = ddd.pick(ALICE, DamePiece.WHITE);
+        DamePiece bobColor = ddd.pick(BOB, DamePiece.BLACK);
+
+        DameBoardPosition position = new DameBoardPosition("B", 4);
+        ddd.set(DamePiece.WHITE, position);
+        ddd.set(DamePiece.BLACK, position);
+    }
+
+    @Test(expected = GameException.class)
+    public void failurePlace2() throws GameException, StatusException {
+        Dame ddd = this.getDame();
+
+        DamePiece aliceColor = ddd.pick(ALICE, DamePiece.WHITE);
+        DamePiece bobColor = ddd.pick(BOB, DamePiece.BLACK);
+
+        DameBoardPosition position = new DameBoardPosition("B", 4);
+        ddd.set(DamePiece.WHITE, position);
+        ddd.set(DamePiece.BLACK, (position = new DameBoardPosition("A", 5)));
+        ddd.set(DamePiece.WHITE, (position = new DameBoardPosition("F", 4)));
+        ddd.set(DamePiece.BLACK, (position = new DameBoardPosition("B", 6)));
+
     }
 
 }
