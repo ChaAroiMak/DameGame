@@ -84,15 +84,18 @@ public class DameImpl implements Dame {
     }
 
     boolean hasWon(DamePiece color) {
-        //vertical row
-        if() {
-            return true;
-        }
+        //testen ob wenigstens ein stein sich noch bewegen kann
+        //falls ja --> keiner hat gewonnen
+        //falls nein --> gegner hat gewonnen
+        return false;
+    }
 
-        //horizontal
-        if() {
-            return true;
-        }
+    private boolean canMove(DamePiece color) {
+        //alle steine ausser dame können einen schritt vorwärts gehen diagonal
+        //steine können stein des gegners überspringen
+        //steine können nicht die eigene farbe überspringen
+        //steine können nur auf freies feld
+        //dame kann vor und zurück
         return false;
     }
 
