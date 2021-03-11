@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class DameImpl implements Dame {
     private Status status = Status.START;
     HashMap<DamePiece, String> player = new HashMap<>();
+    private DamePiece localSymbol;
 
     @Override
     public DamePiece pick(String userName, DamePiece wantedColor) throws GameException, StatusException {
@@ -83,10 +84,23 @@ public class DameImpl implements Dame {
         return this.hasWon(color);
     }
 
-    boolean hasWon(DamePiece color) {
-        //testen ob wenigstens ein stein sich noch bewegen kann
-        //falls ja --> keiner hat gewonnen
-        //falls nein --> gegner hat gewonnen
+    private boolean hasWon(DamePiece color) {
+
+        return false;
+    }
+
+    public boolean set(DameBoardPosition position) throws GameException, StatusException {
+        return this.set(this.localSymbol, position);
+    }
+
+    boolean hasWon(DamePiece color, DameBoardPosition position) throws GameException, StatusException {//testen ob wenigstens ein stein sich noch bewegen kann
+        if(canMove(color) == true) { //falls ja --> keiner hat gewonnen
+            System.out.println("Can make move: " + position);
+            set(color, position);
+        } else { //falls nein --> gegner hat gewonnen
+            System.out.println(color + " has lost the game");
+            return false;
+        }
         return false;
     }
 
