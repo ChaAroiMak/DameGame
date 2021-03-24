@@ -5,6 +5,8 @@ import java.util.HashMap;
 public class DameImpl implements Dame {
     private Status status = Status.START;
     HashMap<DamePiece, String> player = new HashMap<>();
+    HashMap<DamePiece, Integer> pieces = new HashMap<>();
+    private boolean queenMove= false;
     private DamePiece localSymbol;
 
     @Override
@@ -104,19 +106,44 @@ public class DameImpl implements Dame {
         return false;
     }
 
-    private boolean canMove(DamePiece color) {
-        if(canMove(color) == true && color != ){
+    private boolean canMove(DamePiece piece) {
+        if(canMove(piece) == true){
+            if(piece != piece.Queen) {
 
+                return true;
+            }
+            else {
+
+                return true;
+            }
         }
         else{
-
+            hasLost(piece);
+            return false;
         }
         //alle steine ausser dame können einen schritt vorwärts gehen diagonal
         //steine können stein des gegners überspringen
         //steine können nicht die eigene farbe überspringen
         //steine können nur auf freies feld
         //dame kann vor und zurück
-        return false;
+    }
+
+    private boolean hasLost(DamePiece piece) {
+        if(pieces.size() > 0) {
+            if(canMove(piece) == true) {
+                return false;
+            }
+            else {
+                System.out.println(piece + " has lost - no more possible moves");
+                System.exit(0);
+                return true;
+            }
+        }
+        else {
+            System.out.println(piece + " has lost - no more pieces on the board");
+            System.exit(0);
+            return true;
+        }
     }
 
     private DamePiece becomeQueen(DamePiece color, DameBoardPosition position) throws GameException, StatusException {
@@ -124,8 +151,7 @@ public class DameImpl implements Dame {
         if(DameBoardPosition.color != DameBoardStartPositions.color) {
             if (currentPosition("A", 8) || currentPosition("B", 8) || currentPosition("C", 8) || currentPosition("D", 8) || currentPosition("E", 8) || currentPosition("F", 8) || currentPosition("G", 8) || currentPosition("H", 8) ||
                     currentPosition("A", 1) || currentPosition("B", 1) || currentPosition("C", 1) || currentPosition("D", 1) || currentPosition("E", 1) || currentPosition("F", 1) || currentPosition("G", 1) || currentPosition("H", 1)) {
-                    queen(color);
-
+                    color = color.Queen;
             }
         }
 
@@ -146,27 +172,20 @@ public class DameImpl implements Dame {
         switch (cCoordinate) {
             case "A":
                 return 0;
-            break;
             case "B":
                 return 1;
             case "C":
                 return 2;
-            break;
             case "D":
                 return 3;
-            break;
             case "E":
                 return 4;
-            break;
             case "F":
                 return 5;
-            break;
             case "G":
                 return 6;
-            break;
             case "H":
                 return 7;
-            break;
         }
         throw new GameException("position outside of board");
     }
