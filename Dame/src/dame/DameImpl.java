@@ -105,11 +105,39 @@ public class DameImpl implements Dame {
     }
 
     private boolean canMove(DamePiece color) {
+        if(canMove(color) == true && color != ){
+
+        }
+        else{
+
+        }
         //alle steine ausser dame können einen schritt vorwärts gehen diagonal
         //steine können stein des gegners überspringen
         //steine können nicht die eigene farbe überspringen
         //steine können nur auf freies feld
         //dame kann vor und zurück
+        return false;
+    }
+
+    private DamePiece becomeQueen(DamePiece color, DameBoardPosition position) throws GameException, StatusException {
+        if(set(color,position))
+        if(DameBoardPosition.color != DameBoardStartPositions.color) {
+            if (currentPosition("A", 8) || currentPosition("B", 8) || currentPosition("C", 8) || currentPosition("D", 8) || currentPosition("E", 8) || currentPosition("F", 8) || currentPosition("G", 8) || currentPosition("H", 8) ||
+                    currentPosition("A", 1) || currentPosition("B", 1) || currentPosition("C", 1) || currentPosition("D", 1) || currentPosition("E", 1) || currentPosition("F", 1) || currentPosition("G", 1) || currentPosition("H", 1)) {
+                    queen(color);
+
+            }
+        }
+
+        return color;
+    }
+
+    private DamePiece queen(DamePiece piece) {
+
+        return piece;
+    }
+
+    private boolean currentPosition(String a, int i) {
         return false;
     }
 
@@ -150,3 +178,4 @@ public class DameImpl implements Dame {
         return iCoordinate;
     }
 }
+

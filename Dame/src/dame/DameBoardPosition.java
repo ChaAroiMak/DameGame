@@ -1,6 +1,7 @@
 package dame;
 
 public class DameBoardPosition {
+    public static DamePiece color;
     private final String sCoordinate;
     private final int iCoordinate;
 
